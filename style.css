@@ -1122,6 +1122,7 @@ body {
 .cert-card {
   padding: 24px;
   display: flex;
+  align-items: flex-start;
   gap: 18px;
   margin-bottom: 16px;
   transition: var(--transition);
@@ -1129,6 +1130,24 @@ body {
   overflow: hidden;
 }
 .cert-card:hover { border-color: rgba(0,212,255,0.4); transform: translateX(6px); }
+.cert-media {
+  flex-shrink: 0;
+  width: 170px;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cert-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+  image-rendering: auto;
+}
 .cert-glow {
   position: absolute;
   top: 0; right: 0;

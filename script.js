@@ -284,16 +284,50 @@
 })();
 
 /* ─── 12. CONTACT FORM ─── */
-(function initContactForm() {
-  const form   = document.getElementById('contactForm');
-  const toast  = document.getElementById('toast');
+function showToast(message, duration = 4000) {
+  const toast = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMsg');
+  if (!toast || !toastMsg) return;
+  toastMsg.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+(function initContactForm() {
+  const form = document.getElementById('contactForm');
   const submitText = document.getElementById('submitText');
   if (!form) return;
 
-  form.addEventListener('submit', () => {
-    submitText.textContent = 'Sending...';
-    form.querySelectorAll('.form-input').forEach(input => input.disabled = true);
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('.form-submit');
+    if (submitBtn) submitBtn.disabled = true;
+    if (submitText) submitText.textContent = 'Sending...';
+
+    const fd = new FormData(form);
+
+    // Use FormSubmit's AJAX endpoint so the page does not navigate away
+    const ajaxUrl = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+
+    try {
+      const res = await fetch(ajaxUrl, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: fd,
+      });
+
+      if (!res.ok) throw new Error('Network response was not ok');
+      const data = await res.json().catch(() => ({}));
+      console.log('Form submit response:', data);
+      showToast('✅ Message sent — thank you!');
+      form.reset();
+    } catch (err) {
+      console.error('Form submission failed:', err);
+      showToast('⚠️ Message failed. Please try again.');
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      if (submitText) submitText.textContent = 'Send Message';
+    }
   });
 })();
 

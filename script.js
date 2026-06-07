@@ -5,38 +5,6 @@
 
 'use strict';
 
-/* ─── 1. CUSTOM CURSOR ─── */
-(function initCursor() {
-  const dot  = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
-
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left  = mx + 'px';
-    dot.style.top   = my + 'px';
-  });
-
-  // Smooth ring follow
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  // Hover expand on interactive elements
-  const hoverTargets = 'a, button, .skill-card, .project-card, .stat-card, .edu-card, .cert-card, .contact-item';
-  document.querySelectorAll(hoverTargets).forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
-  });
-})();
-
 /* ─── 2. SCROLL PROGRESS BAR ─── */
 (function initScrollProgress() {
   const bar = document.getElementById('scrollProgress');
@@ -323,29 +291,103 @@
   const submitText = document.getElementById('submitText');
   if (!form) return;
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    // Simulate sending
+  form.addEventListener('submit', () => {
     submitText.textContent = 'Sending...';
-
-    setTimeout(() => {
-      submitText.textContent = 'Send Message';
-      form.reset();
-      // Remove floating labels
-      form.querySelectorAll('.form-input').forEach(input => {
-        input.blur();
-      });
-
-      // Show toast
-      toastMsg.textContent = '✅ Message sent successfully!';
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3500);
-    }, 1600);
+    form.querySelectorAll('.form-input').forEach(input => input.disabled = true);
   });
 })();
 
-/* ─── 13. DOWNLOAD CV ─── */
+/* ─── 13. PREVIEW MODAL FOR CERTIFICATES AND PROJECTS ─── */
+(function initPreviewModal() {
+  const modal = document.getElementById('previewModal');
+  const modalImg = document.getElementById('previewModalImg');
+  const modalFallback = document.getElementById('previewModalFallback');
+  const modalTitle = document.getElementById('previewModalTitle');
+  const modalSubtitle = document.getElementById('previewModalSubtitle');
+  const closeBtn = document.getElementById('previewModalClose');
+  if (!modal || !modalImg || !modalFallback || !modalTitle || !modalSubtitle || !closeBtn) return;
+
+  function openModal({ imageSrc, imageAlt, fallbackHtml, title, subtitle }) {
+    if (imageSrc) {
+      modalImg.src = imageSrc;
+      modalImg.alt = imageAlt || title;
+      modalImg.style.display = '';
+      modalFallback.style.display = 'none';
+    } else {
+      modalImg.src = '';
+      modalImg.alt = '';
+      modalImg.style.display = 'none';
+      modalFallback.innerHTML = fallbackHtml || '<span>No preview image available.</span>';
+      modalFallback.style.display = 'flex';
+    }
+
+    modalTitle.textContent = title;
+    modalSubtitle.textContent = subtitle;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  const certCards = document.querySelectorAll('.cert-card:not(.cert-placeholder)');
+  certCards.forEach(card => {
+    const certImage = card.querySelector('.cert-img');
+    if (!certImage) return;
+
+    card.addEventListener('click', event => {
+      if (event.target.closest('a')) return;
+      openModal({
+        imageSrc: certImage.src,
+        imageAlt: certImage.alt || card.querySelector('.cert-content h4')?.textContent || 'Certificate preview',
+        fallbackHtml: '',
+        title: card.querySelector('.cert-content h4')?.textContent || 'Certificate Preview',
+        subtitle: card.querySelector('.cert-issuer')?.textContent || '',
+      });
+    });
+  });
+
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach(card => {
+    const firstImage = card.querySelector('.project-gallery img');
+    const projectTitle = card.querySelector('.project-title')?.textContent || 'Project Preview';
+    const projectDescription = card.querySelector('.project-desc')?.textContent.trim() || '';
+    const tagList = Array.from(card.querySelectorAll('.project-tags .ptag')).map(tag => tag.textContent.trim()).filter(Boolean).join(' · ');
+    const subtitle = tagList || projectDescription;
+    const projectVisual = card.querySelector('.project-visual');
+    const fallbackHtml = projectVisual ? projectVisual.innerHTML : '';
+
+    card.addEventListener('click', event => {
+      if (event.target.closest('a')) return;
+      openModal({
+        imageSrc: firstImage?.src || '',
+        imageAlt: firstImage?.alt || projectTitle,
+        fallbackHtml,
+        title: projectTitle,
+        subtitle,
+      });
+    });
+  });
+
+  function closeModal() {
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', event => {
+    if (event.target === modal || event.target.classList.contains('preview-modal-backdrop')) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && modal.classList.contains('show')) {
+      closeModal();
+    }
+  });
+})();
+
+/* ─── 14. DOWNLOAD CV ─── */
 (function initDownload() {
   const btn = document.getElementById('downloadBtn');
   if (!btn) return;

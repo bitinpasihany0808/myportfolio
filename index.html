@@ -12,10 +12,6 @@
 </head>
 <body>
 
-  <!-- Custom cursor -->
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
   <!-- Scroll progress bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -172,7 +168,7 @@
           </div>
           <div class="stat-card glass">
             <div class="stat-icon">💻</div>
-            <div class="stat-number" data-target="2">0</div>
+            <div class="stat-number" data-target="4">0</div>
             <div class="stat-suffix">+</div>
             <div class="stat-label">Projects Built</div>
           </div>
@@ -436,8 +432,7 @@
         <div class="project-card glass reveal-up">
           <div class="project-visual pv-3">
             <div class="project-gallery">
-              <img src="Screenshot 2026-05-09 194615.png" alt="Audit Office Digital Storage - Screenshot 1" class="gallery-img">
-              <img src="Screenshot 2026-05-09 194633.png" alt="Audit Office Digital Storage - Screenshot 2" class="gallery-img">
+              <img src="Screenshot 2026-06-08 022643.png" alt="Audit Office Digital Storage - Screenshot 1" class="gallery-img">
             </div>
           </div>
           <div class="project-body">
@@ -455,6 +450,38 @@
               <a href="#" class="paction paction-primary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12H5m4 0a4 4 0 110-8 4 4 0 010 8zm0 0h8m-4 4v6m0-6a4 4 0 110 8 4 4 0 010-8z"/></svg>
                 View Details
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Team Task Management -->
+        <div class="project-card glass reveal-up">
+          <div class="project-visual pv-4">
+            <div class="project-gallery">
+              <img src="jayjay.png" alt="TaskTrack team task management screenshot" class="gallery-img">
+            </div>
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">AUDIT OFFICE GATEPASS SYSTEM
+            </h3
+            <p class="project-desc">
+              A collaborative task management web app for tracking team work, deadlines, and project progress with a clean dashboard and responsive UI.
+            </p>
+            <div class="project-tags">
+              <span class="ptag">JavaScript</span>
+              <span class="ptag">PHP</span>
+              <span class="ptag">UI/UX</span>
+              <span class="ptag">Responsive</span>
+            </div>
+            <div class="project-actions">
+              <a href="#" class="paction paction-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+              </a>
+              <a href="#" class="paction paction-ghost">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                Live Demo
               </a>
             </div>
           </div>
@@ -521,7 +548,22 @@
               <span class="cert-date">May 5, 2026</span>
               <span class="cert-code">Certificate Code: 10189574</span>
             </div>
-            <div class="cert-badge">CERTIFIED</div>
+            
+          </div>
+
+          <div class="cert-card glass reveal-up">
+            <div class="cert-glow"></div>
+            <div class="cert-media">
+              <img src="Screenshot 2026-06-07 235639.png" alt="Web Application Development certification" class="cert-img" />
+            </div>
+            <div class="cert-icon">📜</div>
+            <div class="cert-content">
+              <h4>Web Application Development Certification</h4>
+              <p class="cert-issuer">DICT / Partner — Certified Training</p>
+              <span class="cert-date">June 1, 2026</span>
+              <span class="cert-code">Certificate Code: 10230458</span>
+            </div>
+            
           </div>
 
           <div class="cert-card glass cert-placeholder reveal-up">
@@ -594,26 +636,29 @@
 
         <!-- Contact form -->
         <div class="contact-form-wrap reveal-right">
-          <form class="contact-form glass" id="contactForm">
+          <form class="contact-form glass" id="contactForm" action="https://formsubmit.co/bitinpasihany85@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New message from portfolio website">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://formsubmit.co/thanks">
             <div class="form-row">
               <div class="form-group">
-                <input type="text" class="form-input" id="formName" placeholder=" " required />
+                <input type="text" class="form-input" id="formName" name="name" placeholder=" " required />
                 <label class="form-label" for="formName">Your Name</label>
                 <div class="form-line"></div>
               </div>
               <div class="form-group">
-                <input type="email" class="form-input" id="formEmail" placeholder=" " required />
+                <input type="email" class="form-input" id="formEmail" name="email" placeholder=" " required />
                 <label class="form-label" for="formEmail">Email Address</label>
                 <div class="form-line"></div>
               </div>
             </div>
             <div class="form-group">
-              <input type="text" class="form-input" id="formSubject" placeholder=" " required />
+              <input type="text" class="form-input" id="formSubject" name="subject" placeholder=" " required />
               <label class="form-label" for="formSubject">Subject</label>
               <div class="form-line"></div>
             </div>
             <div class="form-group">
-              <textarea class="form-input form-textarea" id="formMessage" placeholder=" " rows="5" required></textarea>
+              <textarea class="form-input form-textarea" id="formMessage" name="message" placeholder=" " rows="5" required></textarea>
               <label class="form-label" for="formMessage">Your Message</label>
               <div class="form-line"></div>
             </div>
@@ -657,6 +702,22 @@
   <div class="toast" id="toast">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
     <span id="toastMsg">Message sent!</span>
+  </div>
+
+  <!-- Preview modal for certificates and projects -->
+  <div class="preview-modal" id="previewModal" aria-hidden="true">
+    <div class="preview-modal-backdrop"></div>
+    <div class="preview-modal-card glass">
+      <button class="preview-modal-close" id="previewModalClose" aria-label="Close preview">×</button>
+      <div class="preview-modal-view">
+        <img src="" alt="" class="preview-modal-img" id="previewModalImg" />
+        <div class="preview-modal-fallback" id="previewModalFallback"></div>
+      </div>
+      <div class="preview-modal-info">
+        <h4 id="previewModalTitle"></h4>
+        <p id="previewModalSubtitle"></p>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
